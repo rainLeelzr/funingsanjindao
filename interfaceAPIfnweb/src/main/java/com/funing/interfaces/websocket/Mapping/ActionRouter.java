@@ -73,6 +73,13 @@ public class ActionRouter {
         return user;
     }
 
+    /**
+     * 登录方法
+     * @param session
+     * @param data
+     * @return
+     * @throws Exception
+     */
     @Pid(PidValue.LOGIN)
     public JsonResultY login(WebSocketSession session, JSONObject data)
             throws Exception {
@@ -86,7 +93,7 @@ public class ActionRouter {
         if (result != null) {
             sessionManager.userLogin((User) result.get("user"), session);
 
-            Integer loginType = (Integer) result.get("login_type");
+            Integer loginType = (Integer) result.get("loginType");
             if (loginType == 2) {
                 sessionManager.userJoinRoom((Room) result.get(("room")), session);
                 result.remove("room");

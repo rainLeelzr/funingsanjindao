@@ -63,19 +63,31 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         JsonResultY jsonResultY = null;
         int pid = -1;
         try {
+            System.out.print("客户端请求参数 ： "+clientMessage);
             // 请求参数解析
             JSONObject jsonObject = JSONObject.fromObject(clientMessage);
+            System.out.print(jsonObject.get("data"));
             JSONObject data = JSONObject.fromObject(jsonObject.get("data"));
-
             pid = jsonObject.getInt("pid");
+
+            //解析请求，根据pid寻找对应的执行方法
             Method m = RouterHelper.from(pid);
+
+            // 假设这里执行的业务方法是登录
+            // pid = 1000
+            // 执行的方法  ----> ActionRouter.login()
+
 
             //用户登录检查，如果是需要登录才能访问的资源，但是客户端未登录，则不允许继续访问业务逻辑
             checkLogin(m, session);
 
             //通过了登录检查，继续执行逻辑
+            //可变参数
             Object result = m.invoke(actionRouter, session, data);
+
+
             if (result != null) {
+                //方法的返回结果是否为JsonResulty实例
                 if (result instanceof JsonResultY) {
                     jsonResultY = (JsonResultY) result;
                 } else {
@@ -83,13 +95,16 @@ public class SystemWebSocketHandler implements WebSocketHandler {
                 }
             }
         } catch (Exception e) {
+            //判断此次异常是否为自定义异常
             CommonError error = parse(e);
             if (error != null) {
+                //若是不为自定义异常，则将错误信息进行封装
                 jsonResultY = new JsonResultY.Builder()
                         .setPid(pid)
                         .setError(error)
                         .build();
             } else {
+                //若是为系统抛出的运行异常则将打印日志，并封装提示为系统异常
                 log.error(e.getMessage(), e);
                 jsonResultY = new JsonResultY.Builder()
                         .setPid(pid)
@@ -126,8 +141,12 @@ public class SystemWebSocketHandler implements WebSocketHandler {
      * 解析异常是否为自定义的异常
      */
     private CommonError parse(Throwable e) {
+        //在这个自定义的枚举类中，exceptions为所有异常的集合
+        //这个类在初始化的时候将所有自定义异常类的简写名称存放在了枚举常量中，并将这些常量放到了一个map集合中
+        //map的key值就是对应的异常类的简写名称，我们在捕获到异常的时候获取到该异常的字节码对象并获取到简写名称去获取map集合
         CommonError error = CommonError.exceptions.get(
                 e.getClass().getSimpleName());
+        //若是不为自定义异常并且存在错误的起因信息
         if (error == null && e.getCause() != null) {
             error = CommonError.exceptions.get(
                     e.getCause().getClass().getSimpleName());
