@@ -154,7 +154,6 @@ public class ActionRouter {
     public JsonResultY createRoom(WebSocketSession session, JSONObject data)
             throws Exception {
 
-
         Map<String, Object> result = roomService.createRoom(data);
         if (result != null) {
             sessionManager.userJoinRoom((Room) result.get(("room")), session);

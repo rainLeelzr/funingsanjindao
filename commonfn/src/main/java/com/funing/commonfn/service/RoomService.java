@@ -19,4 +19,5 @@ public interface RoomService extends BaseService<Integer, Room> {
     Map<String, Object> dismissRoom(JSONObject data);
 
     Map<String, Object> agreeDismiss(JSONObject data);
+
 }

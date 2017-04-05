@@ -65,7 +65,6 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, User> implements U
                 if (u.getUId() == uId) {
                     uId = CommonUtil.createUserCode();//确保用户uId的不同
                 }
-
             }
             //
             user.setUId(uId);
@@ -90,6 +89,8 @@ public class UserServiceImpl extends BaseServiceImpl<Integer, User> implements U
             } else {
                 loginType = 1;
             }
+
+            //判断当前登录用户是否今天刚登录
         }
         result.put("user", user);
         result.put("loginType", loginType);

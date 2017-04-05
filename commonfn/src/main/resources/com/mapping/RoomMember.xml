@@ -5,9 +5,9 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.funing.commonfn.model.RoomMember">
 		INSERT INTO TB_ROOM_MEMBER (
-			ID, JOIN_TIME, LEAVE_TIME, ROOM_ID, SEAT, STATE, USER_ID
+			ID, JOIN_TIME, LEAVE_TIME, ROOM_ID, SEAT, STATE, USER_ID,COLLOCATION
 		) VALUES (
-			#{id}, #{joinTime}, #{leaveTime}, #{roomId}, #{seat}, #{state}, #{userId}
+			#{id}, #{joinTime}, #{leaveTime}, #{roomId}, #{seat}, #{state}, #{userId} , #{collocation}
 		)
 	</insert>
 

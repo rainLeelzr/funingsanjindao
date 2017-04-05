@@ -35,6 +35,7 @@ public enum CommonError {
     ROOM_USER_NOT_IN_ROOM(300004, "玩家没有在房间中,不能退出房间", UserNotInRoomException.class),
     ROOM_READY_ERROR(300005, "玩家准备动作失败", ReadyErrorException.class),
     ROOM_UNREADY(300006, "开始游戏失败,还有玩家没有准备", UnReadyException.class),
+    ROOM_INPUT_CODE(300007, "请输入房间号", InputRoomCodeException.class),
 
     /**
      * 游戏过程

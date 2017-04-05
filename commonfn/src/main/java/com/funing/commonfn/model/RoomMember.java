@@ -3,9 +3,13 @@ package com.funing.commonfn.model;
 public class RoomMember implements Entity {
 
     private static final long serialVersionUID = 1L;
+
+    public static final Integer isCollocation = 0;
+    public static final Integer noCollocation = 1;
+
     /**  */
     protected Integer id;
-    /**  */
+    /** */
     protected java.util.Date joinTime;
     /**  */
     protected java.util.Date leaveTime;
@@ -19,6 +23,16 @@ public class RoomMember implements Entity {
     protected Integer state;
     /**  */
     protected Integer userId;
+
+    protected  Integer collocaation;
+
+    public void setCollocaation(Integer collocaation) {
+        this.collocaation = collocaation;
+    }
+
+    public Integer getCollocaation() {
+        return collocaation;
+    }
 
     public Integer getId() {
         return id;
@@ -118,6 +132,8 @@ public class RoomMember implements Entity {
         }
         return true;
     }
+
+
 
     /**
      * 玩家加入房间后的状态

@@ -63,7 +63,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         JsonResultY jsonResultY = null;
         int pid = -1;
         try {
-            System.out.print("客户端请求参数 ： "+clientMessage);
+            System.out.print("============客户端请求参数 ： "+clientMessage +"========");
             // 请求参数解析
             JSONObject jsonObject = JSONObject.fromObject(clientMessage);
             System.out.print(jsonObject.get("data"));
@@ -117,6 +117,7 @@ public class SystemWebSocketHandler implements WebSocketHandler {
 
         // 响应客户端
         if (jsonResultY != null) {
+            System.out.print("======== 服务端响应数据 ：" + jsonResultY +"===========");
             messageManager.send(session, jsonResultY);
         }
     }

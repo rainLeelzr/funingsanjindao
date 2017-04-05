@@ -94,7 +94,6 @@ public class BaseDaoImpl<K extends Serializable, E extends Entity> implements Ba
 		return sqlSessionTemplate.selectOne(statement("selectCount"), criteria == null ? null : criteria.toMapParameter());
 	}
 
-
 	{
 		entityClass = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
 	}
