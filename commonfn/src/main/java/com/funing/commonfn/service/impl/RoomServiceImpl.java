@@ -87,6 +87,9 @@ public class RoomServiceImpl extends BaseServiceImpl<Integer, Room> implements R
                 if(user.getDiamond()>=diamond){
                     //创建普通房间
                     result =  createBaseRoom(room,result,collocation);
+                    //房间创建完成后 扣除用户相应钻石
+                    user.setDiamond(user.getDiamond()-diamond);
+                    userDao.update(user);
                 }else{
                     throw CommonError.USER_LACK_DIAMONDS.newException();
                 }

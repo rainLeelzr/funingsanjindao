@@ -166,11 +166,19 @@ public class ActionRouter {
                 .build();
     }
 
+    /**
+     * 加入房间
+     * @param session
+     * @param data
+     * @return
+     * @throws Exception
+     */
     @Pid(PidValue.JOIN_ROOM)
     @LoginResource
     public JsonResultY joinRoom(WebSocketSession session, JSONObject data)
             throws Exception {
         Map<String, Object> result = roomService.joinRoom(data);
+        //给房间内的其他玩家推送消息
         if (result != null) {
             sessionManager.userJoinRoom((Room) result.get(("room")), session);
         }
