@@ -13,6 +13,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -173,7 +174,7 @@ public class RoomServiceImpl extends BaseServiceImpl<Integer, Room> implements R
     private RoomMember createRoomMember(Room room, Integer userId,Integer collocation,Integer count) {
         RoomMember roomMember = new RoomMember();
         roomMember.setSeat(count);
-        roomMember.setCollocaation(collocation);
+        roomMember.setCollocation(collocation);
         roomMember.setState(RoomMember.state.UNREADY.getCode());
         roomMember.setJoinTime(new Date());
         roomMember.setRoomId(room.getId());
@@ -384,7 +385,10 @@ public class RoomServiceImpl extends BaseServiceImpl<Integer, Room> implements R
                         room.setState(Room.state.wait.getCode());
                     } else {//房间只剩下1个人时,退出房间后房间状态为解散状态
                         room.setState(Room.state.DISMISS.getCode());
-                        room.setLastLoginTime(new Date());
+                        Date currentTime = new Date();
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String dateString = formatter.format(currentTime);
+                        room.setLastLoginTime(dateString);
                         roomRedis.dismissRoom(room);
                     }
                     dao.update(room);
@@ -407,7 +411,10 @@ public class RoomServiceImpl extends BaseServiceImpl<Integer, Room> implements R
 
                 roomMember.setState(RoomMember.state.OUT_ROOM.getCode());
                 roomMember.setSeat(-1);
-                roomMember.setLeaveTime(new Date());
+                Date currentTime = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String dateString = formatter.format(currentTime);
+                roomMember.setLeaveTime(dateString);
                 roomMemberDao.update(roomMember);
 
                 result.put("roomMember", roomMember);

@@ -12,7 +12,7 @@ public class RoomMember implements Entity {
     /** */
     protected java.util.Date joinTime;
     /**  */
-    protected java.util.Date leaveTime;
+    protected String leaveTime;
     /**  */
     protected Integer roomId;
     /**
@@ -24,14 +24,14 @@ public class RoomMember implements Entity {
     /**  */
     protected Integer userId;
 
-    protected  Integer collocaation;
+    protected  Integer collocation;
 
-    public void setCollocaation(Integer collocaation) {
-        this.collocaation = collocaation;
+    public void setCollocation(Integer collocaation) {
+        this.collocation = collocaation;
     }
 
-    public Integer getCollocaation() {
-        return collocaation;
+    public Integer getCollocation() {
+        return collocation;
     }
 
     public Integer getId() {
@@ -50,11 +50,11 @@ public class RoomMember implements Entity {
         this.joinTime = joinTime;
     }
 
-    public java.util.Date getLeaveTime() {
+    public String getLeaveTime() {
         return leaveTime;
     }
 
-    public void setLeaveTime(java.util.Date leaveTime) {
+    public void setLeaveTime(String leaveTime) {
         this.leaveTime = leaveTime;
     }
 

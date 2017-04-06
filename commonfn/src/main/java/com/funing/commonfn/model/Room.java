@@ -1,5 +1,7 @@
 package com.funing.commonfn.model;
 
+import java.util.Date;
+
 public class Room implements Entity {
 
     public static final int playerLimit = 4;
@@ -112,7 +114,7 @@ public class Room implements Entity {
     protected Integer diamond;
 
     /**  */
-    protected java.util.Date lastLoginTime;
+    protected String lastLoginTime;
 
     /**  */
     protected Integer multiple;
@@ -169,11 +171,11 @@ public class Room implements Entity {
         this.diamond = diamond;
     }
 
-    public java.util.Date getLastLoginTime() {
-        return lastLoginTime;
+    public String getLastLoginTime() {
+       return lastLoginTime;
     }
 
-    public void setLastLoginTime(java.util.Date lastLoginTime) {
+    public void setLastLoginTime(String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
