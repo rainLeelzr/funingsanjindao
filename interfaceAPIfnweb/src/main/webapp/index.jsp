@@ -8,15 +8,19 @@
     <input id="text" type="text" style="width: 100%"/>
     <br/>
     <button onclick="send()">发送消息</button>
-    <button onclick="debug()">调试1</button>
+    <button onclick="debug()">调试</button>
     <button onclick="putOutCard()">打牌3000</button>
     <button onclick="login()">登录</button>
-    <button onclick="createRoom()">创建好友房</button>
+    <button onclick="createRoom()">创建房间</button>
+    <button onclick="joinRoom()">加入房间</button>
     <button onclick="ready()">准备</button>
     <hr/>
     <button onclick="closeWebSocket()">关闭WebSocket连接</button>
+    <button onclick="removeResponseContent()">清空响应内容</button>
     <hr/>
-    <div id="message"></div>
+    <div id="message">
+
+    </div>
 </body>
 
 <script type="text/javascript">
@@ -58,7 +62,7 @@
 
     //将消息显示在网页上
     function setMessageInnerHTML(innerHTML) {
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+        document.getElementById('message').innerHTML += "<span style='color: blue'>服务器响应内容 ： </span>"+'<br/>'+innerHTML + '<br/>';
     }
 
     //关闭WebSocket连接
@@ -66,34 +70,56 @@
         websocket.close();
     }
 
+    //清除服务端响应内容
+    function removeResponseContent(){
+        document.getElementById("message").innerHTML = "";
+    }
+
     //发送消息
     function send() {
         var message = document.getElementById('text').value;
-        websocket.send(message);
+        webSocketSend(message);
     }
 
+    //调试
     function debug() {
         var message = '{pid:1}';
-        websocket.send(message);
+        webSocketSend(message);
     }
 
-    function putOutCard() {
-        var message = '{pid:3000,data:{mahjongId:393,version:10}}';
-        websocket.send(message);
-    }
-
+   //登录
     function login() {
-        var message = '{"pid":1000,"data":{"openId":"13791","nickName":"13791","sex":1,"image":"2222"}}';
-        websocket.send(message);
+        var message = document.getElementById('text').value;
+        webSocketSend(message);
     }
 
+    //创建房间
     function createRoom() {
-        var message = '{"pid":2000,"data":{"uId":"819347","times":"16","type":2,"payType":1,"diamond":8}}';
-        websocket.send(message);
+        var message = document.getElementById('text').value;
+        webSocketSend(message);
     }
 
+    //加入房间
+    function joinRoom() {
+        var message = document.getElementById('text').value;
+        webSocketSend(message);
+    }
+
+    //准备
     function ready() {
-        var message = '{"pid":2005,"data":{"uId":"741695"}}';
+
+    }
+
+    //出牌
+    function putOutCard() {
+        var message = document.getElementById('text').value;
+        webSocketSend(message);
+    }
+
+
+
+    function webSocketSend(message){
+        document.getElementById('message').innerHTML += "<span style='color: red'>发送内容 ： </span>"+'<br/>'+message + '<br/>';
         websocket.send(message);
     }
 
