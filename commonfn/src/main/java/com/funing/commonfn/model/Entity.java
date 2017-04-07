@@ -152,6 +152,8 @@ public interface Entity extends Serializable {
 
         String field;
 
+        int[] values;
+
         Object value, value2;
 
         private String condition;

@@ -33,15 +33,15 @@ public class CommonUtil {
      *
      * @Title: CommonUtil.java
      * @Package commons.lander.util
-     * @Description: 创建4位数字的房间号码
+     * @Description: 创建6位数字的房间号码
      * @author chenwenhao
      * @date 2016-12-1 上午9:01:01
      */
     public static Integer createRoomCode() {
 
-        int i = RandomUtils.nextInt(10000);
-        if (i < 1000) {
-            i += 1000;
+        int i = RandomUtils.nextInt(100000);
+        if (i < 100000) {
+            i += 100000;
         }
         return i;
     }

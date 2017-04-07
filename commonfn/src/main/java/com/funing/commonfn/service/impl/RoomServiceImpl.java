@@ -71,11 +71,12 @@ public class RoomServiceImpl extends BaseServiceImpl<Integer, Room> implements R
                 room.setType(type);
                 room.setPlayers(players);
                 room.setCreatedTime(new Date());
-                room.setStart(Room.start.UNSTART.getCode());
+              //  room.setStart(Room.start.UNSTART.getCode());
                 room.setState(Room.state.wait.getCode());
 
                 Integer roomCode = CommonUtil.createRoomCode();
                 Entity.RoomCriteria roomCriteria = new Entity.RoomCriteria();
+                //查询出非 未解散状态的房间
                 roomCriteria.setState(Entity.Value.ne(Room.state.DISMISS.getCode()));
                 List<Room> rooms = dao.selectList(roomCriteria);
                 for (Room r : rooms) {
@@ -600,13 +601,15 @@ public class RoomServiceImpl extends BaseServiceImpl<Integer, Room> implements R
 
                 //判断房间用户是否已经全部准备
                 List<RoomMember> roomMembers = roomMemberDao.selectForStart(roomMember);
-                if (roomMembers != null && roomMembers.size() == Room.playerLimit) {//所有玩家都已经准备,可以发牌
-                    //调用开始发牌接口
-                    Room room = dao.selectOne(roomMember.getRoomId());
-                    room.setStart(Room.start.STARTED.getCode());
+                Room room = dao.selectOne(roomMember.getRoomId());
+                if (roomMembers != null && roomMembers.size() == room.getPlayers()) {//所有玩家都已经准备,可以发牌
+                    //更新房间状态 为已开始游戏
                     room.setState(Room.state.PLAYING.getCode());
                     dao.update(room);
+
+                    //=============================调用开始发牌接口==========================================
                     Map<String, Object> mahjongGameData = gameService.firstPutOutCard(room, roomMembers);
+                    //========================================================================================
                     result.putAll(mahjongGameData);
                     type = 2;
                 } else {

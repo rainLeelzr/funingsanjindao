@@ -12,7 +12,6 @@ public class Room implements Entity {
         PAY_BY_ONE(1, "一人支付"),
         PAY_BY_FOUR(2, "四人支付");
 
-
         private int code;
 
         private String name;

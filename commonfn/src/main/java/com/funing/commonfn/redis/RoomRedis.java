@@ -68,7 +68,6 @@ public class RoomRedis {
         redis.sortedSet.deleteByScore(
                 String.format(ROOM_MEMBER_KEY,roomMember.getRoomId()),
                         (double)roomMember.getSeat(),(double)roomMember.getSeat());
-
     }
 
 

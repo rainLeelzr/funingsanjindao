@@ -235,12 +235,21 @@ public class ActionRouter {
         return null;
     }
 
+    /**
+     * 玩家准备
+     * @param session
+     * @param data
+     * @return
+     * @throws Exception
+     */
     @SuppressWarnings("unchecked")
     @Pid(PidValue.READY)
     @LoginResource
     public JsonResultY ready(WebSocketSession session, JSONObject data)
             throws Exception {
+        //准备
         Map<String, Object> result = roomService.ready(data);
+        //根据type判断游戏是否开始  1 尚未开始  2 已经开始
         Integer type = (Integer) result.get("type");
 
         boolean isFirstPutOutCard = false;

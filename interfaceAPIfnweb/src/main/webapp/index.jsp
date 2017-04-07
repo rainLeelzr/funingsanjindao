@@ -107,7 +107,8 @@
 
     //准备
     function ready() {
-
+        var message = document.getElementById('text').value;
+        webSocketSend(message);
     }
 
     //出牌

@@ -63,12 +63,12 @@ public class GameService {
         int bankerSite = 1;
 
         //先设置为userId，在api层转换为uId
+        //获取第一个 房间参与者 id值
         Integer bankerUId = roomMembers.get(bankerSite - 1).getUserId();
 
         // 初始化一局麻将的数据
         MahjongGameData mahjongGameData = MahjongGameData.initData(players, bankerSite);
         log.debug("初始化一局麻将的数据:{}", JsonUtil.toJson(mahjongGameData));
-
 
         // 获取新版本号
         Long version = versionRedis.nextVersion(room.getId());
@@ -82,7 +82,7 @@ public class GameService {
             roomRedis.joinRoom(roomMember);
         }
 
-        // 添加roomMeMber，拆分成4份手牌数据，传给客户端
+        // 添加roomMeMber，拆分成n份手牌数据，传给客户端
         List<FirstPutOutCard> firstPutOutCards = new ArrayList<>(players);
         ClientTouchMahjong clientTouchMahjong = new ClientTouchMahjong();
         for (int i = 0; i < players; i++) {

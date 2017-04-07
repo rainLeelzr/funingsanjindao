@@ -5,9 +5,9 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.funing.commonfn.model.Room">
 		INSERT INTO TB_ROOM (
-			ID, CREATED_TIME, CREATED_USER_ID, DIAMOND, LAST_LOGIN_TIME, MULTIPLE, PAY_TYPE, PLAYERS, ROOM_CODE, START,STATE, TIMES, TYPE
+			ID, CREATED_TIME, CREATED_USER_ID, DIAMOND, LAST_LOGIN_TIME, MULTIPLE, PAY_TYPE, PLAYERS, ROOM_CODE, STATE, TIMES, TYPE
 		) VALUES (
-			#{id}, #{createdTime}, #{createdUserId}, #{diamond}, #{lastLoginTime}, #{multiple}, #{payType}, #{players}, #{roomCode},#{start}, #{state}, #{times}, #{type}
+			#{id}, #{createdTime}, #{createdUserId}, #{diamond}, #{lastLoginTime}, #{multiple}, #{payType}, #{players}, #{roomCode}, #{state}, #{times}, #{type}
 		)
 	</insert>
 
@@ -45,7 +45,6 @@
         <result property="payType" column="PAY_TYPE"/>
         <result property="players" column="PLAYERS"/>
         <result property="roomCode" column="ROOM_CODE"/>
-        <result property="start" column="START"/>
         <result property="state" column="STATE"/>
         <result property="times" column="TIMES"/>
         <result property="type" column="TYPE"/>
@@ -61,7 +60,6 @@
             <if test="entity.payType != null">PAY_TYPE = #{entity.payType},</if>
             <if test="entity.players != null">PLAYERS = #{entity.players},</if>
             <if test="entity.roomCode != null">ROOM_CODE = #{entity.roomCode},</if>
-            <if test="entity.start != null">START = #{entity.start},</if>
             <if test="entity.state != null">STATE = #{entity.state},</if>
             <if test="entity.times != null">TIMES = #{entity.times},</if>
             <if test="entity.type != null">TYPE = #{entity.type},</if>
